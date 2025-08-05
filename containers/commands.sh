@@ -2,6 +2,16 @@
 
 PROJECT_DIR="$HOME/GolandProjects/valetainer"
 
+if [ "$(id -u)" -eq 0 ];
+then
+  echo "/!\ You started this command with sudo ! Please re-run without."
+  echo "Exiting..."
+  exit
+fi
+
+USER_UID=$(id -u)
+echo "Current user UID: $USER_UID"
+
 CONTAINER_ENGINE=docker
 if command -v podman > /dev/null 2>&1
 then
@@ -17,11 +27,11 @@ $CONTAINER_ENGINE container stop valetainer-nginx && $CONTAINER_ENGINE container
 $CONTAINER_ENGINE container stop valetainer-dnsmasq && $CONTAINER_ENGINE container rm --volumes valetainer-dnsmasq
 
 # Remove images
-#$CONTAINER_ENGINE image rm valetainer-mariadb:beta
-#$CONTAINER_ENGINE image rm valetainer-php:beta
-#$CONTAINER_ENGINE image rm valetainer-pma:beta
-#$CONTAINER_ENGINE image rm valetainer-nginx:beta
-#$CONTAINER_ENGINE image rm valetainer-dnsmasq:beta
+$CONTAINER_ENGINE image rm valetainer-mariadb:beta
+$CONTAINER_ENGINE image rm valetainer-php:beta
+$CONTAINER_ENGINE image rm valetainer-pma:beta
+$CONTAINER_ENGINE image rm valetainer-nginx:beta
+$CONTAINER_ENGINE image rm valetainer-dnsmasq:beta
 
 # Network
 $CONTAINER_ENGINE network rm valetainer
@@ -39,7 +49,10 @@ $CONTAINER_ENGINE run \
   -d valetainer-mariadb:beta
 
 cd $PROJECT_DIR/dockerfiles/php
-$CONTAINER_ENGINE image build -t "valetainer-php:beta" -f php.Dockerfile .
+$CONTAINER_ENGINE image build \
+  -t "valetainer-php:beta" \
+  --build-arg USER_UID=$USER_UID \
+  -f php.Dockerfile .
 $CONTAINER_ENGINE run \
   --network valetainer \
   --restart unless-stopped \
