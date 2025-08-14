@@ -1,4 +1,4 @@
-FROM docker.io/library/phpmyadmin:apache
+FROM docker.io/phpmyadmin:apache
 LABEL authors="valetainer"
 
 ARG PMA_ABSOLUTE_URI="phpmyadmin.test"

@@ -1,4 +1,4 @@
-FROM docker.io/library/debian:12.11
+FROM docker.io/debian:12.11
 LABEL authors="valetainer"
 
 RUN apt update \
