@@ -1,4 +1,6 @@
-FROM docker.io/mysql:9.4.0
+ARG MYSQL_VERSION=9.4.0
+
+FROM docker.io/mysql:${MYSQL_VERSION}
 LABEL authors="valetainer"
 
 ENV MYSQL_ROOT_PASSWORD="root"
