@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"valetainer/internal/cli/create"
 
 	"github.com/spf13/cobra"
 )
@@ -16,7 +17,11 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Oops. An error while executing Valetainer '%s'\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Oops. An error while executing Valetainer '%s'\n", err)
 		os.Exit(1)
 	}
+}
+
+func init() {
+	rootCmd.AddCommand(create.NewCommand())
 }

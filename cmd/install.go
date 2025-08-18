@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 	"valetainer/sdk/config"
+
+	"github.com/spf13/cobra"
 )
 
 var installCmd = &cobra.Command{
@@ -21,10 +22,10 @@ func init() {
 }
 
 func prepareConfigDir() {
-	os.MkdirAll(config.GetPath(), 0774)
+	_ = os.MkdirAll(config.GetPath(), 0774)
 
 	for _, dir := range config.Dirs {
 		fmt.Println(dir, config.GetPathOf(dir))
-		os.Mkdir(config.GetPathOf(dir), 0774)
+		_ = os.Mkdir(config.GetPathOf(dir), 0774)
 	}
 }
