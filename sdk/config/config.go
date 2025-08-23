@@ -1,19 +1,55 @@
 package config
 
 import (
+	"fmt"
 	"os"
-	"path/filepath"
 )
 
-var Dirs = []string{"Sites", "Dns"}
+// TODO See where to store types
 
-func GetPath() string {
-	userConfigPath, _ := os.UserConfigDir()
-	configPath := filepath.Join(userConfigPath, "valetainer")
-
-	return configPath
+type MainConfig struct {
+	preferedContainerizationEngine string
 }
 
-func GetPathOf(dir string) string {
-	return filepath.Join(GetPath(), dir)
+type SiteConfig struct {
+	name     string
+	network  DockerNetworkConfig
+	services []ServiceConfig
+}
+type DockerNetworkConfig struct {
+	name string
+}
+
+type ServiceConfig struct {
+	internalName string
+	docker       DockerServiceConfig
+}
+type DockerServiceConfig struct {
+	image string
+	//tag string
+	volumes      []string
+	ports        []int
+	capabilities []string
+}
+type DockerPortConfig struct {
+	bindInterface string
+	inside        int
+	outsite       int
+}
+
+func SetupConfigFile() {
+	configPath := GetPathOfConfigFile()
+
+	configFileExists, err := os.Stat(configPath)
+	fmt.Println(err, configFileExists)
+	if err != nil {
+		// TODO Create file and init default values
+	}
+}
+
+func GetConfigFile() {
+	// TODO read config file
+	// see how to handle JSON and return maybe an helper object
+	// Like the config file we will surelly add/remov/update datas into it from every commands run
+	// So having utility functions can be really convenient
 }

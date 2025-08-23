@@ -119,7 +119,6 @@ echo -e "${LOG_BEGIN} Deploying stack number one (test-laravel.test) ... ${LOG_E
     --network valetainer-test-laravel \
     --restart always \
     --name "valetainer-test-laravel-mariadb" \
-    --hostname "valetainer-test-laravel-mariadb" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-laravel-mariadb" \
     -d "valetainer-mariadb:beta"
 
@@ -127,7 +126,6 @@ echo -e "${LOG_BEGIN} Deploying stack number one (test-laravel.test) ... ${LOG_E
     --network valetainer-test-laravel \
     --restart always \
     --name "valetainer-test-laravel-php" \
-    --hostname "valetainer-test-laravel-php" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-laravel-php" \
     --volume "${HOME}/ValetainerProjects":/ValetainerProjects \
     -d "valetainer-php:beta"
@@ -137,7 +135,6 @@ echo -e "${LOG_BEGIN} Deploying stack number one (test-laravel.test) ... ${LOG_E
     --network valetainer-test-laravel \
     --restart always \
     --name "valetainer-test-laravel-web" \
-    --hostname "valetainer-test-laravel-web" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-laravel-web" \
     --volume "${HOME}/ValetainerProjects":/ValetainerProjects \
     --volume "${PROJECT_DIR}/containers/nginx/sites.conf.d/sites/project-test-laravel.conf":/etc/nginx/conf.d/site.conf \
@@ -157,7 +154,6 @@ echo -e "${LOG_BEGIN} Deploying stack number two (test.test) ... ${LOG_END}"
     --network valetainer-test \
     --restart always \
     --name "valetainer-test-mariadb" \
-    --hostname "valetainer-test-mariadb" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-mariadb" \
     -d "valetainer-mariadb:beta"
 
@@ -165,7 +161,6 @@ echo -e "${LOG_BEGIN} Deploying stack number two (test.test) ... ${LOG_END}"
     --network valetainer-test \
     --restart always \
     --name "valetainer-test-php" \
-    --hostname "valetainer-test-php" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-php" \
     --volume "${HOME}/ValetainerProjects":/ValetainerProjects \
     -d "valetainer-php:beta"
@@ -175,7 +170,6 @@ echo -e "${LOG_BEGIN} Deploying stack number two (test.test) ... ${LOG_END}"
     --network valetainer-test \
     --restart always \
     --name "valetainer-test-web" \
-    --hostname "valetainer-test-web" \
     "${INTERNAL_HOSTNAME}" "valetainer-test-web" \
     --volume "${HOME}/ValetainerProjects":/ValetainerProjects \
     --volume "${PROJECT_DIR}/containers/nginx/sites.conf.d/sites/project-test.conf":/etc/nginx/conf.d/site.conf \
@@ -188,7 +182,6 @@ echo -e "${LOG_BEGIN} Deploying global containers ... ${LOG_END}"
     --network valetainer-proxy \
     --restart always \
     --name "valetainer-pma" \
-    --hostname "valetainer-pma" \
     "${INTERNAL_HOSTNAME}" "valetainer-pma" \
     -d "valetainer-pma:beta"
 
@@ -196,7 +189,6 @@ echo -e "${LOG_BEGIN} Deploying global containers ... ${LOG_END}"
     --network valetainer-proxy \
     --restart always \
     --name "valetainer-nginx" \
-    --hostname "valetainer-nginx" \
     "${INTERNAL_HOSTNAME}" "valetainer-nginx" \
     --cap-add CAP_NET_BIND_SERVICE \
     -p "127.0.0.1:80:80" \
@@ -207,7 +199,6 @@ echo -e "${LOG_BEGIN} Deploying global containers ... ${LOG_END}"
     --network valetainer-proxy \
     --restart always \
     --name "valetainer-dnsmasq" \
-    --hostname "valetainer-dnsmasq" \
     "${INTERNAL_HOSTNAME}" "valetainer-dnsmasq" \
     --cap-add CAP_NET_BIND_SERVICE \
     -p "127.0.0.1:53:53/udp" \
